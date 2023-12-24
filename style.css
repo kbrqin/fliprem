@@ -1,0 +1,156 @@
+:root {
+    --nightblue: #140445;
+    --borderpurple: #71649e;
+    --medpurple: #9c91c2;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    /* background-image: url("twilight.png");
+    background-repeat: no-repeat;
+    background-size: 1546.875px 1100px; */
+    background-color: var(--nightblue);
+}
+
+.wrapper {
+    box-sizing: content-box;
+    width: 26.87em;
+    padding: 2.5em 3em;
+    background-color:antiquewhite;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 0.6em;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    display: grid;
+    gap: 0.6em;
+}
+
+.stats-container {
+    text-align: right;
+    margin-bottom: 1.2em;
+}
+
+.stats-container span {
+    font-weight: 600;
+}
+
+.card-container {
+    position: relative;
+    height: 6.25em;
+    width: 6.25em;
+    cursor: pointer;
+}
+
+.card-back, .card-front {
+    position: absolute;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--borderpurple);
+    transition: 0.7s ease-out;
+    backface-visibility: hidden;
+}
+
+.card-back {
+    background-color: var(--medpurple);
+    color: antiquewhite;
+    font-size: 2.8em;
+    font-weight: 550;
+}
+
+.card-front {
+    background-color: antiquewhite;
+    color: var(--nightblue);
+    font-size: 2em;
+    font-weight: 550;
+    transform: rotateY(180deg);
+}
+
+.card-container.flipped .card-back {
+    transform: rotateY(180deg);   
+}
+
+.card-container.flipped .card-front {
+    transform: rotateY(0deg);   
+}
+
+.endscreen-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width:100%;
+    background-color: var(--nightblue);
+    top: 0;
+}
+
+button {
+    border: none;
+    border-radius: 0.3em;
+    padding: 0.7em 1.3em;
+    cursor: pointer;
+}
+
+.game-menu-container {
+    position: relative;
+    width: 100%;
+    gap: 0.6em;
+    text-align: right;
+}
+
+.game-menu-container button {
+    font-size: 1.1em;
+    display: inline-block;
+    vertical-align: middle;
+    justify-content: space-between;
+    background-color: var(--nightblue);
+    color: antiquewhite;
+}
+
+#stop {
+    margin: 1.0em auto 0 auto;
+}
+
+#pause {
+    margin: 1.0em auto 0 0.5em;
+
+}
+
+.endscreen-container button {
+    font-size: 1.3em;
+}
+
+.hidden {
+    display: none;
+}
+
+#result {
+    color: antiquewhite;
+    text-align: center;
+}
+
+#result h2 {
+    font-size: 2em;
+}
+
+#result h4 {
+    font-size: 1.5em;
+    margin: 0.6em 0 1em 0;
+}
