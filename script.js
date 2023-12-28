@@ -9,7 +9,7 @@ const endscreen = document.querySelector(".endscreen-container");
 const sizeInput = 4; // change to accommodate more in the future
 
 let cards;
-let interval;
+let timer;
 let card1 = false, card2 = false;
 
 const items = [
@@ -66,12 +66,14 @@ const randomCardGen = (size = sizeInput) => { // update for match1, match2, star
     return cardValues;
 };
 
-const matrixGen = (cardValues, size = sizeInput) => {
+const matrixGen = (cardValues, size = sizeInput) => { // cardvalues1, cardvalues2, and then put them tgt into cardvalues
     gameContainer.innerHTML="";
     cardValues = [...cardValues, ...cardValues];
 
     // shuffle cards
     cardValues.sort(() => Math.random() - 0.5);
+
+    let seenCards = [];
 
     for(let i=0; i<size**2; i++){
         /**
@@ -79,13 +81,44 @@ const matrixGen = (cardValues, size = sizeInput) => {
          * card-front: actual card content
          * data-card-name: stores names of the cards 
          */
-        gameContainer.innerHTML += `
-        <div class="card-container" data-card-name="${cardValues[i].name}">
-            <div class="card-back">?</div>
-            <div class="card-front">${cardValues[i].match1}</div>
-        </div>
-        `;
+        if(seenCards.includes(cardValues[i].match1)) {
+            gameContainer.innerHTML += `
+            <div class="card-container" data-card-name="${cardValues[i].name}">
+                <div class="card-back">?</div>
+                <div class="card-front">${cardValues[i].match2}</div>
+            </div>
+            `;
+            seenCards.push(cardValues[i].match2);
+        } else if(seenCards.includes(cardValues[i].match2)) {
+            gameContainer.innerHTML += `
+            <div class="card-container" data-card-name="${cardValues[i].name}">
+                <div class="card-back">?</div>
+                <div class="card-front">${cardValues[i].match1}</div>
+            </div>
+            `;
+            seenCards.push(cardValues[i].match1);
+        } else {
+            let matchNum = Math.floor(Math.random() * 2);
+            if(matchNum == 0) {
+                gameContainer.innerHTML += `
+            <div class="card-container" data-card-name="${cardValues[i].name}">
+                <div class="card-back">?</div>
+                <div class="card-front">${cardValues[i].match1}</div>
+            </div>
+            `;
+            seenCards.push(cardValues[i].match1);
+            } else {
+                gameContainer.innerHTML += `
+            <div class="card-container" data-card-name="${cardValues[i].name}">
+                <div class="card-back">?</div>
+                <div class="card-front">${cardValues[i].match2}</div>
+            </div>
+            `;
+            seenCards.push(cardValues[i].match2);
+            }
+        }
     }
+    
 
     // format board into grid
     gameContainer.style.gridTemplateColumns = `repeat(${size}, auto)`;
@@ -139,21 +172,31 @@ const matrixGen = (cardValues, size = sizeInput) => {
 
 // start game
 playBtn.addEventListener("click", () => {
-    sec = 0; min = 0;
-    moveCount = 0;
-    endscreen.classList.add("hidden");
-    playBtn.classList.add("hidden");
-    stopBtn.classList.remove("hidden");
-    pauseBtn.classList.remove("hidden");
+    if(playBtn.innerText == "Resume") {
+        endscreen.classList.add("hidden");
+        playBtn.classList.add("hidden");
+        stopBtn.classList.remove("hidden");
+        pauseBtn.classList.remove("hidden");
 
-    // start timer
-    timeDisplay.innerHTML = `<span>Time: </span> 00:00`;
-    interval = setInterval(timeGen, 1000);
+        // start timer
+        timer = setInterval(timeGen, 1000);
+    } else {
+        sec = 0; min = 0;
+        moveCount = 0;
+        endscreen.classList.add("hidden");
+        playBtn.classList.add("hidden");
+        stopBtn.classList.remove("hidden");
+        pauseBtn.classList.remove("hidden");
 
-    // initial moves
-    moves.innerHTML = `<span>Moves: </span> ${moveCount}`;
+        // start timer
+        timeDisplay.innerHTML = `<span>Time: </span> 00:00`;
+        timer = setInterval(timeGen, 1000);
 
-    initializer();
+        // initial moves
+        moves.innerHTML = `<span>Moves: </span> ${moveCount}`;
+
+        initializer();
+    }
 });
 
 // stop game
@@ -163,11 +206,16 @@ stopBtn.addEventListener("click", (stopGame = () => {
     playBtn.innerText = "Play Again";
     stopBtn.classList.add("hidden");
     pauseBtn.classList.add("hidden");
-    clearInterval(interval);
+    clearInterval(timer);
 }));
 
 pauseBtn.addEventListener("click", () => {
-    alert("Game paused. Press OK to Resume.");
+    endscreen.classList.remove("hidden");
+    playBtn.classList.remove("hidden");
+    playBtn.innerText = "Resume";
+    stopBtn.classList.add("hidden");
+    pauseBtn.classList.add("hidden");
+    clearInterval(timer);
 });
 
 // initalize board

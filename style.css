@@ -76,8 +76,8 @@ body {
 .card-front {
     background-color: antiquewhite;
     color: var(--nightblue);
-    font-size: 2em;
-    font-weight: 550;
+    font-size: 1.4em;
+    font-weight: 500;
     transform: rotateY(180deg);
 }
 
