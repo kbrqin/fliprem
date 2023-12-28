@@ -1,5 +1,6 @@
 const moves = document.getElementById("moves");
 const timeDisplay = document.getElementById("time");
+const logo = document.getElementById("logo");
 const playBtn = document.getElementById("play");
 const stopBtn = document.getElementById("stop");
 const pauseBtn = document.getElementById("pause");
@@ -215,6 +216,8 @@ playBtn.addEventListener("click", () => {
 stopBtn.addEventListener("click", (stopGame = () => {
     endscreen.classList.remove("hidden");
     playBtn.classList.remove("hidden");
+    result.innerHTML = `<h2>Game Ended</h2>
+    <h4>Moves: ${moveCount}</h4>`;
     playBtn.innerText = "Play Again";
     stopBtn.classList.add("hidden");
     pauseBtn.classList.add("hidden");
@@ -224,11 +227,21 @@ stopBtn.addEventListener("click", (stopGame = () => {
 pauseBtn.addEventListener("click", () => {
     endscreen.classList.remove("hidden");
     playBtn.classList.remove("hidden");
+    result.innerHTML = `<h2>Game Paused</h2>
+    <h4>Current Moves: ${moveCount}</h4>`;
     playBtn.innerText = "Resume";
     stopBtn.classList.add("hidden");
     pauseBtn.classList.add("hidden");
     clearInterval(timer);
 });
+
+// logo.addEventListener("click", () => {
+//     endscreen.classList.remove("hidden");
+//     playBtn.classList.remove("hidden");
+//     stopBtn.classList.add("hidden");
+//     pauseBtn.classList.add("hidden");
+//     clearInterval(timer);
+// });
 
 // initalize board
 const initializer = () => {

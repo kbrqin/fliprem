@@ -2,6 +2,7 @@
     --nightblue: #140445;
     --borderpurple: #71649e;
     --medpurple: #9c91c2;
+    --accentgreen: #94EBEB;
 }
 
 *{
@@ -150,6 +151,8 @@ button {
 }
 
 .endscreen-container button {
+    background-color: var(--accentgreen);
+    color: var(--nightblue);
     font-size: 1.3em;
 }
 
