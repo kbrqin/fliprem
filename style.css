@@ -8,7 +8,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: "Inconsolata";
 }
 
 body {
@@ -87,6 +87,22 @@ body {
 
 .card-container.flipped .card-front {
     transform: rotateY(0deg);   
+}
+
+.match-found {
+    animation: fadeOut 1.5s;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    } 100% {
+        opacity: 0;
+    }
+}
+
+.matched-hidden {
+    opacity: 0;
 }
 
 .endscreen-container {

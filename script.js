@@ -142,6 +142,8 @@ const matrixGen = (cardValues, size = sizeInput) => { // cardvalues1, cardvalues
                         // match the cards
                         card1.classList.add("match-found"); 
                         card2.classList.add("match-found");
+
+                        setTimeout(hideMatched(card1, card2), 2000);
     
                         // reset card states for next pair to be found
                         card1 = false;
@@ -149,9 +151,7 @@ const matrixGen = (cardValues, size = sizeInput) => { // cardvalues1, cardvalues
                         
                         // check if won game yet or not
                         if(successCount == Math.floor(cardValues.length / 2)) {
-                            result.innerHTML = `<h2>You won! 🎉</h2>
-                            <h4>Moves: ${moveCount}</h4>`;
-                            stopGame();
+                            setTimeout(win, 1000);
                         } 
                     } else { // if cards don't match
                         // flip the cards back around
@@ -169,6 +169,18 @@ const matrixGen = (cardValues, size = sizeInput) => { // cardvalues1, cardvalues
 
     });
 };
+
+// hide matched cards
+function hideMatched(card1, card2) {
+    card1.classList.add("matched-hidden");
+    card2.classList.add("matched-hidden");
+}
+
+function win() {
+    result.innerHTML = `<h2>You won! 🎉</h2>
+                        <h4>Moves: ${moveCount}</h4>`;
+    stopGame();
+}
 
 // start game
 playBtn.addEventListener("click", () => {
